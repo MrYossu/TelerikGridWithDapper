@@ -1,0 +1,45 @@
+﻿@page "/"
+@using TelerikGridWithDapper.Helpers
+@using System.Data.SqlClient
+@using Dapper
+
+<h1><span class="oi oi-pulse"></span> Northwind</h1>
+
+<TelerikGrid TItem="@Product"
+             OnRead="@LoadData"
+             ScrollMode="@GridScrollMode.Virtual"
+             FilterMode="@GridFilterMode.FilterRow"
+             Height="500px"
+             RowHeight="40"
+             Sortable="true"
+             PageSize="15"
+             FilterRowDebounceDelay="350">
+  <GridColumns>
+    <GridColumn Field="@nameof(Product.ProductName)" />
+    <GridColumn Field="@nameof(Product.UnitPrice)" />
+    <GridColumn Field="@nameof(Product.UnitsInStock)" />
+  </GridColumns>
+</TelerikGrid>
+
+<h3 class="mt-3">Matching products: @MatchingRows</h3>
+<h3>Total value of stock: @TotalValue.ToString("C2")</h3>
+
+@code {
+
+  private int MatchingRows { get; set; }
+  private decimal TotalValue { get; set; }
+
+  private async Task LoadData(GridReadEventArgs args) {
+    string connectionString = "Data Source=.;Initial Catalog=Northwind;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true";
+    (MatchingRows, string sqlFilters, Dictionary<string, object> values) = await args.GetData<Product>(connectionString, "Products", "ProductName");
+    await using SqlConnection connection = new(connectionString);
+    TotalValue = await connection.QuerySingleAsync<decimal>($"select sum(unitsinstock * unitprice) from products{sqlFilters}", values);
+  }
+
+  public class Product {
+    public string ProductName { get; set; } = "";
+    public decimal UnitPrice { get; set; }
+    public int UnitsInStock { get; set; }
+  }
+
+}
