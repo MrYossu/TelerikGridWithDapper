@@ -3,13 +3,13 @@
 @using Dapper
 @using System.Data.SqlClient
 
-<h1><span class="oi oi-pulse"></span> Northwind</h1>
+<h1><span class="oi oi-pulse"></span> Northwind with Dapper</h1>
 
 <TelerikGrid TItem="@Product"
              OnRead="@LoadData"
              ScrollMode="@GridScrollMode.Virtual"
              FilterMode="@GridFilterMode.FilterRow"
-             Height="500px"
+             Height="400px"
              RowHeight="40"
              Sortable="true"
              PageSize="15"
