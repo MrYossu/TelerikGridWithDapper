@@ -52,7 +52,7 @@ There is a further optional parameter, but I'll leave that for the moment to kee
 
 That's all you need. The grid will load the data, and will respect the filtering and sorting options you set.
 
-As a comparison, our original grid code took about 12-14 seconds to load the data (ulp). By contrast, the version that used this extension method took less thn 2 seconds 😎.
+As a comparison, our original grid code took about 12-14 seconds to load the data (ulp). By contrast, the version that used this extension method took less than 2 seconds 😎.
 
 ## The return values
 The code above ignores the values returned from the `GetData` method. Most of the time that's fine, but you may want to do something extra with the data.
@@ -88,7 +88,7 @@ private async Task LoadData(GridReadEventArgs args) {
 ## Custom filtering
 Sometimes you want to build your own filter for the Telerik grid. For example, we like using the filter row feature, but this only allows you to filter on one value, eg data whose date is after the entered value. What it doesn't allow you to do is filter on a range, eg data whose date is between two dates.
 
-In such cases, you can build your own filter using the `<&lt;>FilterCellTemplate>` tag, [as shown in the demos](https://demos.telerik.com/blazor-ui/grid/custom-filter-row).
+In such cases, you can build your own filter using the `<FilterCellTemplate>` tag, [as shown in the demos](https://demos.telerik.com/blazor-ui/grid/custom-filter-row).
 
 Whilst this works fine when using EF Core, it doesn't work with Dapper, as all the data access is done manually, and the grid doesn't know how to query the database. In this case, you need to tell the grid to rebind the data, passing your extra data values to the `GetData` method.
 
@@ -129,4 +129,4 @@ As mentioned at the top, this is a work in progress. As time goes on, I may modi
 In the meantime, I know of the following issues...
 
 - The code here was written with SQL Server in mind. I haven't checked it against any other database. Whilst most of the SQL it produces should be fairly vanilla, I think the SQL used for paging may be specific to SQL Server. If you want to use this code with other databases, you'd need to check if `offset (@Skip) rows fetch next (@PageSize) rows only` will work. If not, you'll need to modify the SQL
-- Optimisation freaks may note that the SQL generated starts with `select * from`, and get upset that this is inefficent. Whilst using the wildcard is marginally slower than specifying the columns to be selected, my testing showed it to be so close that it wasn't worth complicating the method with an extra parameter to specify the columns. If this bothers you, or you hit a situation where this micro-optimisation does make a difference, feel free to copy the code and add the parameter.
+- Optimisation freaks may note that the SQL generated starts with `select * from`, and get upset that this is inefficient. Whilst using the wildcard is marginally slower than specifying the columns to be selected, my testing showed it to be so close that it wasn't worth complicating the method with an extra parameter to specify the columns. If this bothers you, or you hit a situation where this micro-optimisation does make a difference, feel free to copy the code and add the parameter.
