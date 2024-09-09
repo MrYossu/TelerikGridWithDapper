@@ -6,6 +6,16 @@ using Telerik.DataSource;
 namespace TelerikGridWithDapper.Helpers;
 
 public static class TelerikGridHelper {
+  /// <summary>
+  /// Extension method to the Telerik GridReadEventArgs object that loads the grid data using Dapper
+  /// </summary>
+  /// <typeparam name="T">The type of the grid data</typeparam>
+  /// <param name="args">The GridReadEventArgs object</param>
+  /// <param name="connectionString">Connection string to the SQL Server database</param>
+  /// <param name="tableName">The table name to be queried for the data</param>
+  /// <param name="defaultColumnForSort">If sorting is not specified in the grid, this column will be used by default</param>
+  /// <param name="defaultSort">The default sort direction (if the user does not set one in the grid). Defaults to ascending</param>
+  /// <returns>A 3-tuple containing total number of rows matching the current filtering, the SQL for the filtering (useful if you want to do any extra queries using the same filters), and a collection of data values used by the SQL</returns>
   public static async Task<(int, string, Dictionary<string, object>)> GetData<T>(this GridReadEventArgs args, string connectionString, string tableName, string defaultColumnForSort, ListSortDirection defaultSort = ListSortDirection.Ascending) =>
     await GetData<T>(args, connectionString, tableName, defaultColumnForSort, new List<TelerikGridFilterOptions>(), defaultSort);
 
