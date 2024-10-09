@@ -1,6 +1,6 @@
 ﻿# Using Dapper with the Telerik Blazor grid
 
->**Note:** I added the extension method described here into version 1.9.0 of the [Pixata.Blazor.TelerikComponents](https://github.com/MrYossu/Pixata.Utilities/tree/master/Pixata.Blazor.TelerikComponents) Nuget package. However, it will probably be removed from the next version, as I later discovered that I can do everything that this method does without needing Dapper. I have written a new extension method that works with EF Core, and has more functionality. You can see [the sample project for that here](https://github.com/MrYossu/TelerikGridWithFromSql), and a blog post should follow soon with more explanation.
+>**Note:** I added the extension method described here into version 1.9.0 of the [Pixata.Blazor.TelerikComponents](https://github.com/MrYossu/Pixata.Utilities/tree/master/Pixata.Blazor.TelerikComponents) Nuget package. However, it was  removed from the next version, as I later discovered that I can do everything that this method does without needing Dapper. I have written a new extension method that works with EF Core, and has more functionality. You can see [the sample project for that here](https://github.com/MrYossu/TelerikGridWithFromSql). There are links there to blog posts with more explanation.
 
 We were having problems with the slow loading time for data in a grid. Even though we had created a flat table for the data and added indexes, etc, there was still a noticeable delay in loading the data.
 
